@@ -2,30 +2,28 @@ import { Plus, X, Save } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function ProfilePage() {
+  const [userName, setUserName] = useState('Chinmay Mohapatra');
+  const [avatar, setAvatar] = useState('/photos/chinmay.jpeg');
   const [teachSkills, setTeachSkills] = useState(['React', 'Tailwind', 'TypeScript']);
   const [learnSkills, setLearnSkills] = useState(['Python', 'Machine Learning']);
   const [newTeachSkill, setNewTeachSkill] = useState('');
   const [newLearnSkill, setNewLearnSkill] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [userName, setUserName] = useState('My Profile');
-  const [avatar, setAvatar] = useState('/vite.svg');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users/profile')
+    fetch('https://api-placeholder/api/users/profile')
       .then(res => res.json())
       .then(data => {
-        if(data) {
+        if(data && Object.keys(data).length > 0) {
           setTeachSkills(data.skillsOffered || []);
           setLearnSkills(data.skillsWanted || []);
           setUserName(data.name || 'My Profile');
           if (data.avatar) setAvatar(data.avatar);
         }
-        setLoading(false);
       })
       .catch(err => {
-        console.error('Failed to load profile data:', err);
-        setLoading(false);
+        console.warn('Using fallback data');
       });
   }, []);
 

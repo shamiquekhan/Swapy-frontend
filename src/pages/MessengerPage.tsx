@@ -12,28 +12,23 @@ export default function MessengerPage() {
   const [inCall, setInCall] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [activeContact, setActiveContact] = useState(CONTACTS[0]);
 
   useEffect(() => {
-    setLoading(true);
-    fetch('http://localhost:5000/api/messages')
-      .then(res => res.json())
-      .then(data => {
-        if (activeContact.id === 2) {
-           setMessages([
-             { id: 101, text: "Hey Marcus! How's it going?", sender: 'me', time: '11:00 AM' },
-             { id: 102, text: "Good! Sent you the Figma file. Look forward to the Python session.", sender: 'them', time: '11:05 AM' }
-           ]);
-        } else {
-           setMessages(data);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching messages:', err);
-        setLoading(false);
-      });
+    if (activeContact.id === 2) {
+       setMessages([
+         { id: 101, text: "Hey Marcus! How's it going?", sender: 'me', time: '11:00 AM' },
+         { id: 102, text: "Good! Sent you the Figma file. Look forward to the Python session.", sender: 'them', time: '11:05 AM' }
+       ]);
+    } else {
+       setMessages([
+         { id: 1, text: "Hi Chinmay! Thanks for matching with me.", sender: 'them', time: '10:00 AM' },
+         { id: 2, text: "I saw you want to learn React. I can walk you through component lifecycles today if you're free?", sender: 'them', time: '10:02 AM' },
+         { id: 3, text: "Hey Alice, that sounds perfect! I've been struggling with useEffect.", sender: 'me', time: '10:15 AM' },
+         { id: 4, text: "Awesome. Do you want to do a quick video call?", sender: 'them', time: '10:16 AM' }
+       ]);
+    }
   }, [activeContact]);
 
   useEffect(() => {

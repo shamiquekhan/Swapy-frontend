@@ -14,20 +14,22 @@ interface UserMatch {
 }
 
 export default function MatchesPage() {
-  const [matches, setMatches] = useState<UserMatch[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [matches, setMatches] = useState<UserMatch[]>([
+    { _id: '1', name: 'Demo User 1', role: 'Frontend Developer', rating: 4.9, match: '98%', skillsOffered: ['React', 'Tailwind'], skillsWanted: ['Node.js'], avatar: '/photos/ai.jpg' },
+    { _id: '2', name: 'Demo User 2', role: 'Backend Engineer', rating: 4.8, match: '95%', skillsOffered: ['Python', 'Docker'], skillsWanted: ['React'], avatar: '/photos/students with laptop.webp' }
+  ]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://api-placeholder/api/users')
       .then(res => res.json())
       .then(data => {
-        // Just take the first 3 profiles as dummy curated matches for the demo
-        setMatches(data.slice(0, 3));
-        setLoading(false);
+        if(data && data.length > 0) {
+          setMatches(data.slice(0, 3));
+        }
       })
       .catch(err => {
-        console.error('Error fetching matches:', err);
-        setLoading(false);
+        console.warn('Using fallback data');
       });
   }, []);
 

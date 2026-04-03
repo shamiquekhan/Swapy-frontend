@@ -13,30 +13,33 @@ interface SwapRequest {
 }
 
 export default function RequestsPage() {
-  const [requests, setRequests] = useState<SwapRequest[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [requests, setRequests] = useState<SwapRequest[]>([
+    { id: 1, name: 'Michael', role: 'DevOps', seeking: 'React', offering: 'Docker', status: 'pending', time: '2 hours ago', avatar: '/photos/profile male 2.avif' },
+    { id: 2, name: 'Jessica', role: 'UX Designer', seeking: 'HTML/CSS', offering: 'Figma', status: 'pending', time: '5 hours ago', avatar: '/photos/profile female 1.jpg' }
+  ]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Generate dummy requests based on the db users to hook into the backend
-    fetch('http://localhost:5000/api/users')
+    fetch('https://api-placeholder/api/users')
       .then(res => res.json())
       .then(data => {
-        const dummyRequests = data.slice(3, 6).map((u: any, i: number) => ({
-          id: u._id,
-          name: u.name,
-          role: u.role,
-          seeking: u.skillsWanted?.[0] || 'Machine Learning',
-          offering: u.skillsOffered?.[0] || 'Python',
-          status: 'pending',
-          time: i === 0 ? '2 hours ago' : i === 1 ? '5 hours ago' : '1 day ago',
-          avatar: u.avatar
-        }));
-        setRequests(dummyRequests);
-        setLoading(false);
+        if(data && data.length > 3) {
+          const dummyRequests = data.slice(3, 6).map((u: any, i: number) => ({
+            id: u._id,
+            name: u.name,
+            role: u.role,
+            seeking: u.skillsWanted?.[0] || 'Machine Learning',
+            offering: u.skillsOffered?.[0] || 'Python',
+            status: 'pending',
+            time: i === 0 ? '2 hours ago' : i === 1 ? '5 hours ago' : '1 day ago',
+            avatar: u.avatar
+          }));
+          setRequests(dummyRequests);
+        }
       })
       .catch(err => {
-        console.error(err);
-        setLoading(false);
+        console.warn('Using fallback data');
       });
   }, []);
 

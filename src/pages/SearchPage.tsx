@@ -15,19 +15,21 @@ interface Profile {
 
 export default function SearchPage() {
   const [query, setQuery] = useState('');
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [profiles, setProfiles] = useState<Profile[]>([
+    { _id: '3', name: 'Alice Chen', role: 'UI Designer', rating: 4.9, match: '95%', skillsOffered: ['Figma', 'CSS'], skillsWanted: ['React'], avatar: '/photos/profile female 1.jpg' },
+    { _id: '4', name: 'John Doe', role: 'Full Stack Dev', rating: 4.7, match: '92%', skillsOffered: ['Node.js', 'Express'], skillsWanted: ['Docker'], avatar: '/photos/profile male 1.avif' },
+    { _id: '5', name: 'Sarah Smith', role: 'Data Scientist', rating: 4.8, match: '90%', skillsOffered: ['Python', 'Pandas'], skillsWanted: ['Machine Learning'], avatar: '/photos/profile female 2.webp' }
+  ]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://api-placeholder/api/users')
       .then(res => res.json())
       .then(data => {
         setProfiles(data);
-        setLoading(false);
       })
       .catch(err => {
-        console.error('Error fetching profiles:', err);
-        setLoading(false);
+        console.warn('Using fallback data');
       });
   }, []);
 
