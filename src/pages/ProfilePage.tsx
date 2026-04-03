@@ -23,7 +23,10 @@ export default function ProfilePage() {
         }
         setLoading(false);
       })
-      .catch(console.error);
+      .catch(err => {
+        console.error('Failed to load profile data:', err);
+        setLoading(false);
+      });
   }, []);
 
   const handleAddTeachSkill = () => {

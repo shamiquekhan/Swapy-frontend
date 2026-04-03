@@ -9,7 +9,7 @@ interface BlurTextProps {
 
 export function BlurText({ text, className = '', delay = 0 }: BlurTextProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
   const words = text.split(' ');
 
   return (
