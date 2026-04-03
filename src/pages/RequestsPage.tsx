@@ -40,7 +40,7 @@ export default function RequestsPage() {
       });
   }, []);
 
-  const handleAction = (id: string | number, action: 'accept' | 'decline') => {
+  const handleAction = (id: string | number, _action: 'accept' | 'decline') => {
     setRequests(prev => prev.filter(r => r.id !== id));
     // In real app, trigger API
   };

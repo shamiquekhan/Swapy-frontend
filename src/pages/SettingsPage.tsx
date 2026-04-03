@@ -1,4 +1,4 @@
-import { User, Bell, Shield, Moon, Monitor, Camera, Lock, Webhook, LogOut } from 'lucide-react';
+import { User, Bell, Shield, Moon, Monitor, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

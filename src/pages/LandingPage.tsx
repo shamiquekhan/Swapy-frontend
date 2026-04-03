@@ -1,4 +1,4 @@
-﻿import { ArrowUpRight, Play, Zap, Palette, BarChart3, Shield } from 'lucide-react';
+﻿import { ArrowUpRight, Zap, Palette, BarChart3, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { BlurText } from '../components/BlurText';
 import { HLSVideo } from '../components/HLSVideo';
